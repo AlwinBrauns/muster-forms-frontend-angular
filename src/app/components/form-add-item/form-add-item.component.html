@@ -1,0 +1,34 @@
+<h2>Add Item</h2>
+<form [formGroup]="addItemForm" (submit)="onSubmit()">
+  <h3>Item</h3>
+
+  <input  formControlName="title" placeholder="title" required>
+  <span class="warn" *ngIf="itemTitle?.errors?.['required'] && (itemTitle?.touched || itemTitle?.dirty)">title is needed</span>
+  <span class="warn" *ngIf="itemTitle?.errors?.['pattern'] && (itemTitle?.touched || itemTitle?.dirty)">title is not valid</span>
+
+  <input formControlName="description" placeholder="description" required>
+  <span class="warn" *ngIf="itemDescription?.errors?.['required'] && itemDescription?.touched">description is needed</span>
+
+  <h3 class="elements-title" (click)="onShowAddElements()">Components of the item</h3>
+  <form class="elements" *ngIf="showAddElements" [formGroup]="addElementToItemForm" (submit)="onAddElement()">
+    <ul class="added-elements">
+      <li *ngFor="let element of addedElementsForms.controls;let i=index">
+        {{element.value.amount}} {{element.value.title}}
+        <form [formGroup]="getFormGroupAt(i)" class="edit-element" *ngIf="showEditElement===getFormGroupAt(i)" (submit)="onCloseEditElement()">
+          <span class="close-edit-element" (click)="onCloseEditElement()">X</span>
+          <input type="text" formControlName="title">
+          <input type="number" min="1" formControlName="amount">
+          <input type="submit" hidden="true">
+        </form>
+        <span class="show-edit-element" (click)="onShowEditElement(getFormGroupAt(i))">Edit</span>
+        <span class="delete-element" (click)="onDeleteElement(i)">X</span>
+      </li>
+      <li *ngIf="addedElementsForms.length < 1">No elements yet</li>
+    </ul>
+    <input formControlName="title" placeholder="title">
+    <input formControlName="amount" type="number" min="1" placeholder="amount">
+    <input [disabled]="addElementToItemForm.invalid" type="submit" value="add component">
+  </form>
+  <hr>
+  <input [disabled]="addItemForm.invalid || showEditElement?.invalid" type="submit" value="add item">
+</form>

@@ -1,0 +1,8 @@
+@use "src/app/variables" as vars;
+
+:host {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: vars.$default-distance*2;
+  padding: vars.$default-distance*2;
+}

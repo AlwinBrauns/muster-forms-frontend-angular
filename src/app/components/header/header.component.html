@@ -1,0 +1,7 @@
+<nav>
+  <ul>
+    <li *ngFor="let route of routes | keyvalue">
+      <a routerLink="{{route.value}}">{{route.key}}</a>
+    </li>
+  </ul>
+</nav>

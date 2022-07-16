@@ -1,0 +1,25 @@
+<div class="header">
+  <h3>{{title}}</h3>
+</div>
+<div class="body">
+  <img />
+  <div class="description">
+    <p>{{description}}</p>
+  </div>
+  <div *ngIf="elements && elements.length>0" class="elements">
+    <h4>Elements</h4>
+    <ul>
+      <li *ngFor="let element of elements">
+        <h5>{{element.title}}</h5>
+        <p>{{element.amount}}</p>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="actions">
+  <div class="add">
+    <input type="button" value="">
+    <fa-icon class="icon" [icon]="icon"></fa-icon>
+  </div>
+</div>
+
